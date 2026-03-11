@@ -1,0 +1,10 @@
+HcLauncheR Updates are:
+
+-Fix Internal server error.
+-Fix HcLauncheR version not fetch from some country.
+-Improved launcher security..
+
+
+
+
+Click "OK" to continue updating...
