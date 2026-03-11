@@ -1718,13 +1718,14 @@ html {
   text-shadow: 0 0 10px var(--neon-color), 0 0 20px var(--neon-color);
 }
 
-/* =============================
+/* ============================= 
    HcLauncheR VIDEO SECTION
 ============================= */
 
 .launcher-video{
   padding:80px 20px;
   text-align:center;
+  position:relative;
 }
 
 .video-container-wrapper{
@@ -1733,8 +1734,10 @@ html {
 }
 
 .launcher-video h2{
-  font-size:32px;
+  font-size:34px;
   margin-bottom:15px;
+  color:#00eaff;
+  text-shadow:0 0 10px rgba(0,255,255,0.6);
 }
 
 .video-description{
@@ -1745,13 +1748,30 @@ html {
   color:#ccc;
 }
 
+/* Video frame with neon border */
+
 .video-frame{
   position:relative;
   padding-bottom:56.25%;
   height:0;
   overflow:hidden;
-  border-radius:10px;
-  box-shadow:0 0 25px rgba(0,0,0,0.6);
+  border-radius:12px;
+  border:2px solid rgba(0,255,255,0.4);
+  box-shadow:
+  0 0 20px rgba(0,255,255,0.2),
+  0 0 40px rgba(0,255,255,0.15),
+  inset 0 0 20px rgba(0,255,255,0.1);
+  transition:0.4s ease;
+}
+
+/* Hover glow effect */
+
+.video-frame:hover{
+  box-shadow:
+  0 0 30px rgba(0,255,255,0.5),
+  0 0 60px rgba(0,255,255,0.3),
+  inset 0 0 25px rgba(0,255,255,0.15);
+  transform:scale(1.01);
 }
 
 .video-frame iframe{
@@ -1760,6 +1780,7 @@ html {
   left:0;
   width:100%;
   height:100%;
+  border:0;
 }
 
 /* ------------------------------
@@ -2000,4 +2021,5 @@ html {
   color: #00ffff;
   text-shadow: 0 0 12px #00ffff;
   transform: translateX(4px);
+
 }
