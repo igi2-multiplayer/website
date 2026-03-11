@@ -1,0 +1,2003 @@
+/* =============================
+   VARIABLES & BASE RESET
+============================= */
+:root {
+  --neon-color: #00ffff;
+  --neon-glow: 0 0 10px #00ffff, 0 0 20px #00ffff60, 0 0 30px #00ffff40;
+  --neon-bg-alpha: 0.3;
+  --scroll-speed: 40s;
+  --hover-scale: 1.08;
+  --border-radius: 15px;
+  --box-shadow-light: 0 0 25px rgba(0, 255, 255, 0.25);
+  --box-shadow-hover: 0 0 50px var(--neon-color);
+  --neon-answer: #66ffff;
+  --hover-glow: rgba(0, 255, 255, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #0a0a0a;
+  color: var(--neon-color);
+  overflow-x: hidden;
+}
+
+/* ------------------------------
+   LOGO
+--------------------------------*/
+.logo img {
+  width: 65px;
+  height: auto;
+}
+.logo a {
+  color: var(--neon-color);
+  font-weight: bold;
+  font-size: 1.6em;
+  text-decoration: none;
+  text-shadow: 0 0 8px var(--neon-color);
+  transition: 0.3s;
+}
+.logo a:hover {
+  text-shadow: 0 0 15px var(--neon-color), 0 0 30px var(--neon-color);
+}
+
+/* ===============================
+   PARTICLES BACKGROUND
+================================*/
+#particles-js {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none; /* allow mouse events on page */
+}
+
+
+/* ------------------------------
+   NAVBAR
+--------------------------------*/
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+  height: 60px;
+  transition: top 0.3s;
+}
+.nav-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+nav a {
+  color: var(--neon-color);
+  text-decoration: none;
+  font-weight: bold;
+  text-shadow: 0 0 5px var(--neon-color);
+  transition: 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+nav a:hover,
+nav a.active {
+  text-shadow: 0 0 15px var(--neon-color), 0 0 30px var(--neon-color);
+}
+.dropdown {
+  position: relative;
+}
+.dropbtn {
+  cursor: pointer;
+  padding: 5px 10px;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  min-width: 180px;
+  border: 1px solid var(--neon-color);
+  box-shadow: 0 8px 16px rgba(0, 255, 255, 0.3);
+  border-radius: 8px;
+  z-index: 20;
+}
+.dropdown-content a {
+  color: var(--neon-color);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  transition: 0.3s;
+  line-height: 1.4;
+}
+.dropdown-content a:hover {
+  background-color: #00ffff10;
+  color: #0a0a0a;
+}
+.dropdown-content a i,
+.dropdown-content a svg {
+  font-size: 1.1em;
+  vertical-align: middle;
+  position: relative;
+  top: 0;
+}
+@media (min-width: 769px) {
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+}
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+.hamburger span {
+  height: 3px;
+  width: 25px;
+  background: var(--neon-color);
+  border-radius: 2px;
+}
+
+/* ------------------------------
+   HERO SECTION
+--------------------------------*/
+.hero {
+  text-align: center;
+  margin: 100px 30px 15px;
+  text-shadow: 0 0 20px var(--neon-color);
+  animation: fadeIn 1.5s ease-in-out;
+}
+.hero h1 {
+  font-size: clamp(2em, 5vw, 3em);
+  margin-bottom: 10px;
+  animation: flicker 2s infinite;
+}
+.hero p {
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto 15px;
+  color: #00ffffaa;
+  line-height: 1.5;
+}
+.hero .button {
+  font-size: 1em;
+  padding: 12px 30px;
+}
+.hero .subtitle {
+  font-size: 1.4rem;
+  color: #00ffffcc;
+  text-shadow: 0 0 10px #00ffff80;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  line-height: 1.4;
+  animation: glowIn 2s ease-in-out;
+}
+
+/* ------------------------------
+   SECTION BASE
+--------------------------------*/
+section {
+  padding: 20px 10px;
+  text-align: center;
+}
+
+/* ------------------------------
+   PROJECTS
+--------------------------------*/
+.projects {
+  border-top: 1px solid #00ffff30;
+  margin-top: 40px;
+}
+.projects h2 {
+  font-size: 2em;
+  text-shadow: 0 0 10px var(--neon-color);
+  margin-bottom: 30px;
+}
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+.card {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--neon-color);
+  border-radius: 10px;
+  padding: 20px;
+  width: 280px;
+  box-shadow: 0 0 10px #00ffff30;
+  transition: 0.3s;
+}
+.card:hover {
+  box-shadow: 0 0 20px var(--neon-color), 0 0 40px var(--neon-color);
+  transform: translateY(-5px);
+}
+
+/* ------------------------------
+   BUTTONS
+--------------------------------*/
+.button {
+  display: inline-block;
+  padding: 12px 30px;
+  margin: 15px 0;
+  color: #0a0a0a;
+  background: var(--neon-color);
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 0 0 10px var(--neon-color), 0 0 20px var(--neon-color);
+  transition: 0.3s;
+}
+.button:hover {
+  box-shadow: 0 0 20px var(--neon-color), 0 0 40px var(--neon-color);
+  transform: scale(1.05);
+}
+.button i {
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* =============================
+   FOOTER STYLING
+============================= */
+
+footer {
+  text-align: center;
+  padding: 25px 10px; /* ⬅️ reduced height like old footer */
+  background: #000; /* solid black background for contrast */
+  border-top: 1px solid rgba(0, 255, 255, 0.25);
+  color: var(--neon-color); /* ⬅️ main footer text in neon cyan */
+  text-shadow: 0 0 5px var(--neon-color);
+  position: relative;
+  z-index: 10;
+  font-size: 0.95rem;
+}
+
+/* Footer text (© line) */
+#footer-text {
+  color: var(--neon-color); /* ✅ neon cyan text */
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+/* Footer links container */
+.footer-links {
+  margin-bottom: 8px;
+}
+
+/* Neon footer links */
+.footer-links a {
+  color: var(--neon-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #fff;
+  text-shadow: 0 0 8px var(--neon-color), 0 0 20px var(--neon-color);
+}
+
+/* Social links */
+footer .social a {
+  color: var(--neon-color);
+  text-decoration: none;
+  margin: 0 6px;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+footer .social a:hover {
+  color: #fff;
+  text-shadow: 0 0 8px var(--neon-color), 0 0 20px var(--neon-color);
+}
+
+footer i {
+  margin-right: 6px;
+}
+
+
+/* =============================
+   *Mobile Nav + Dropdwon*
+============================= */
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+  .nav-links, .nav-links.open {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    background-color: rgba(0, 0, 0, 0.95);
+    padding: 15px 20px;
+    border: 1px solid var(--neon-color);
+    border-radius: 10px;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    width: 80%;
+    max-width: 260px;      /* <-- key: restrict width */
+    max-height: 95vh;      /* <-- key: restrict tall menus */
+    overflow-y: auto;      /* <-- enables scroll if too tall */
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    z-index: 20;
+    display: none;
+  }
+  .nav-links.open {
+    display: flex !important;
+  }
+  .nav-links a {
+    width: 100%;
+    padding: 12px 20px;
+  }
+  .dropdown-content {
+    position: static;
+    min-width: 100%;
+    margin-left: 15px;
+    border: none;
+    box-shadow: none;
+  }
+  .dropdown.active .dropdown-content {
+    display: block;
+  }
+  .card {
+    width: 90%;
+  }
+  .button {
+    width: 80%;
+    padding: 10px 20px;
+    font-size: 1em;
+  }
+  .hero h1 {
+    font-size: 2em;
+  }
+  .hero .subtitle {
+    font-size: 1.1rem;
+  }
+}
+
+/* Place all remaining sections (IGI2, Contact Section, Project Section, Map Gallery, FAQ, etc.) here, as in your original code.
+   Make sure you do NOT repeat :root anywhere else.
+   Replace all hardcoded #00ffff and box/radius values with the variable, e.g. var(--neon-color), for consistency.
+*/
+/* IGI2 Covert Strike Section */
+.igi2-section {
+  padding: 60px 20px;
+  text-align: center;
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+  background: rgba(0,0,0,0.6);
+  margin: 40px 0;
+  border-radius: 15px;
+  border: 1px solid #00ffff30;
+  
+}
+
+.igi2-section h2 {
+  font-size: clamp(2em, 5vw, 3em);
+  margin-bottom: 20px;
+}
+
+.igi2-section p {
+  font-size: 1.1em;
+  max-width: 800px;
+  margin: 0 auto 40px auto;
+}
+
+.card-img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 0 10px #00ffff50;
+}
+
+/* ------------------------------
+   CONTACT SECTION - Neon Glow
+--------------------------------*/
+.contact-section {
+  padding: 30px 20px 60px; /* tighter top padding */
+  text-align: center;
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+  margin-top: 0;
+}
+
+.contact-section h2 {
+  font-size: clamp(2em, 4vw, 2.5em);
+  margin-bottom: 45px;
+}
+
+.contact-section p {
+  font-size: 1.1em;
+  max-width: 700px;
+  margin: 0 auto 25px auto;
+  color: #00ffffaa;
+}
+
+.contact-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+/* ------------------------------
+   CONTACT FORM
+--------------------------------*/
+.contact-form {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid #00ffff;
+  border-radius: 15px;
+  padding: 30px;
+  flex: 1;
+  min-width: 280px;
+  box-shadow: 0 0 30px #00ffff50;
+  transition: 0.3s;
+}
+
+.contact-form:hover {
+  box-shadow: 0 0 50px #00ffff80;
+  transform: translateY(-5px);
+}
+
+.contact-form input,
+.contact-form textarea {
+  background: rgba(0,0,0,0.2);
+  border: 1px solid #00ffff;
+  border-radius: 8px;
+  padding: 12px 15px;
+  color: #00ffff;
+  font-size: 1em;
+  outline: none;
+  margin-bottom: 15px;
+  width: 100%;
+  transition: 0.3s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #00ffff;
+  box-shadow: 0 0 15px #00ffff70;
+}
+
+.contact-form button {
+  background: #00ffff;
+  color: #0a0a0a;
+  font-weight: bold;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+  transition: 0.3s;
+}
+
+.contact-form button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+}
+
+/* ------------------------------
+   CONTACT INFO
+--------------------------------*/
+.contact-info {
+  flex: 1;
+  min-width: 280px;
+  text-align: left;
+  color: #00ffffaa;
+  padding: 50px;
+  border-radius: 15px;
+  background: rgba(0,0,0,0.3);
+  box-shadow: 0 0 20px #00ffff30;
+}
+
+.contact-info p {
+  margin-bottom: 15px;
+}
+
+@media(max-width:768px){
+  .contact-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .contact-info {
+    text-align: center;
+  }
+}
+/* Fix blue color on social icons and links */
+.contact-info a,
+.social-links a {
+  color: #00ffff; /* neon cyan */
+  text-decoration: none;
+  text-shadow: 0 0 10px #00ffff;
+  transition: 0.3s ease;
+}
+
+/* Hover glow effect */
+.contact-info a:hover,
+.social-links a:hover {
+  color: #ffffff;
+  text-shadow: 0 0 25px #00ffff, 0 0 40px #00ffff;
+}
+
+/* ------------------------------
+   CONTACT FORM POPUP
+--------------------------------*/
+#form-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.9);
+  color: #00ffff;
+  border: 2px solid #00ffff;
+  padding: 25px 35px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+  text-shadow: 0 0 10px #00ffff;
+  z-index: 100;
+  box-shadow: 0 0 20px #00ffff50;
+}
+
+#form-popup.show {
+  display: block;
+  animation: popupFade 0.5s forwards;
+}
+
+@keyframes popupFade {
+  0% { opacity: 0; transform: translate(-50%, -60%); }
+  100% { opacity: 1; transform: translate(-50%, -50%); }
+}
+/* ------------------------------
+   PROJECT SECTION (combined)
+--------------------------------*/
+.project-section {
+  padding: 60px 20px;
+  text-align: left;
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff90;
+  background: rgba(0, 0, 0, 0.6);
+  border-top: 1px solid #00ffff30;
+  box-shadow: 0 0 30px #00ffff20 inset;
+}
+
+.project-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  align-items: flex-start;
+  gap: 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.project-left {
+  flex: 0 0 480px;   /* same as image max-width */
+}
+
+.project-image img {
+  width: 100%;
+  max-width: 480px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #00ffff;
+  box-shadow: 0 0 20px #00ffff50;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-image img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 30px #00ffff80;
+}
+
+.project-details {
+  max-width: 550px;
+}
+
+.project-details h2 {
+  font-size: clamp(1.8em, 3vw, 2.4em);
+  margin-bottom: 15px;
+  color: #00ffff;
+}
+
+.project-details h2 span {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+.project-details p {
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #00ffffcc;
+  margin-bottom: 20px;
+}
+
+.project-details h3 {
+  margin-bottom: 10px;
+  font-size: 1.4em;
+  text-shadow: 0 0 8px #00ffff;
+}
+/* ------------------------------
+   PROJECT DOWNLOAD BUTTON
+--------------------------------*/
+.project-image {
+  text-align: center;
+}
+.project-download-btn img {
+	width: 24px;
+	height: 24px;
+	object-fit: contain;
+	flex-shrink: 0;
+}
+.project-download-btn {
+  display: inline-flex;      /* keep icon + text on same line */
+  align-items: center;       /* vertically center icon & text */
+  gap: 8px;                  /* space between icon and text */
+  margin-top: 20px;
+  padding: 12px 28px;
+  font-size: 1.05em;
+  font-weight: bold;
+  color: #0a0a0a;
+  background: var(--neon-color);
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: var(--box-shadow-light);
+  transition: all 0.3s ease;
+  text-shadow: none;
+}
+
+
+.project-download-btn i {
+  margin-right: 8px;
+}
+
+.project-download-btn:hover {
+  transform: scale(1.05);
+  box-shadow: var(--box-shadow-hover);
+}
+.version-info {
+  margin-top: 12px;       /* adds space between button and version text */
+  color: #00ffffcc;
+  font-size: 0.95em;
+}
+/* =============================
+   Image Preview Overlay (Lightbox)
+============================= */
+#image-preview-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85); /* dark semi-transparent background */
+  display: none;                 /* hidden by default */
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;                /* above everything else */
+  cursor: zoom-out;
+  transition: opacity 0.3s ease;
+}
+
+#image-preview-overlay img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+  box-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#image-preview-overlay img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 40px #00ffff, 0 0 80px #00ffff;
+}
+
+#image-preview-overlay:active {
+  cursor: zoom-out;
+}
+
+/* ------------------------------
+   ACTIVITY LIST (HcCommanDeR)
+--------------------------------*/
+.activity-list {
+  list-style: none;  /* removes default bullets */
+  margin: 0;
+  padding: 0;
+}
+
+.activity-list li {
+  margin: 8px 0;
+  line-height: 1.6;
+  color: #00ffffcc;
+  text-shadow: 0 0 6px #00ffff40;
+  transition: 0.3s ease;
+}
+
+.activity-list li i {
+  margin-right: 8px;  /* space between icon and text */
+  color: #00ffff;
+  text-shadow: 0 0 8px #00ffff80;
+}
+
+.activity-list li:hover {
+  color: #00ffff;
+  text-shadow: 0 0 12px #00ffff;
+}
+
+/* ------------------------------
+   INSTRUCTION LIST (HcLauncheR)
+--------------------------------*/
+.instruction-list {
+  list-style: none; /* Remove default bullets */
+  margin-left: 0;
+  padding-left: 0;
+  font-size: 1.05em;
+  color: #00ffffaa;
+}
+
+.instruction-list li {
+  margin: 8px 0;
+  line-height: 1.6;
+  text-shadow: 0 0 6px #00ffff40;
+  transition: 0.3s ease;
+}
+
+.instruction-list li i {
+  margin-right: 8px; /* space between icon and text */
+  color: #00ffff;
+  text-shadow: 0 0 8px #00ffff80;
+}
+
+.instruction-list li:hover {
+  color: #00ffff;
+  text-shadow: 0 0 12px #00ffff;
+}
+
+/* ------------------------------
+   RESPONSIVE DESIGN
+--------------------------------*/
+@media (max-width: 768px) {
+  .project-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .project-details {
+    max-width: 100%;
+  }
+
+  .instruction-list {
+    text-align: left;
+    margin: 0 auto;
+    max-width: 90%;
+  }
+
+  .activity-list {
+    text-align: left;
+    margin: 0 auto;
+    max-width: 90%;
+  }
+}
+/* =============================
+   MAP GALLERY - Continuous Neon Scroll
+============================= */
+.map-gallery {
+  position: relative;
+  width: 100%;
+  padding: 100px 20px;
+
+  /* Transparent clean background */
+  background: transparent;
+  backdrop-filter: none;
+
+  text-align: center;
+  overflow: hidden;
+
+  border-top: 1px solid rgba(0, 255, 255, 0.25);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.25);
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.125) inset;
+}
+
+/* Section Title */
+.map-gallery h2 {
+  font-size: 2.5em;
+  color: var(--neon-color);
+  text-shadow: 0 0 15px var(--neon-color), 0 0 40px rgba(0,255,255,0.5);
+  margin-bottom: 50px;
+  animation: glowTitle 2s infinite alternate;
+}
+
+/* Scrollable area */
+.map-gallery-scroll {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Continuous marquee scroll */
+.map-gallery-container {
+  display: flex;
+  gap: 40px;
+  animation: scrollMarquee var(--scroll-speed) linear infinite;
+  width: max-content;
+}
+
+.map-gallery-container:hover {
+  animation-play-state: paused;
+}
+
+/* Each map image box */
+.map-box {
+  position: relative;
+  width: 380px;
+  height: 250px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 15px rgba(0,255,255,0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Map image */
+.map-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ✅ keeps clean edges, no cropping */
+  border-radius: var(--border-radius);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Animated neon gradient border */
+.map-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--border-radius);
+  padding: 2px;
+  background: linear-gradient(270deg, var(--neon-color), #0077ff, var(--neon-color), #0077ff);
+  background-size: 400% 400%;
+  animation: neonBorder 6s linear infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Hover zoom effect */
+.map-box:hover img {
+  transform: scale(var(--hover-scale));
+  box-shadow: var(--box-shadow-hover);
+}
+
+
+/* =============================
+   RESPONSIVE
+============================= */
+@media (max-width: 768px) {
+  .map-gallery {
+    padding: 60px 10px;
+  }
+
+  .map-gallery-container {
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .map-box {
+    width: 90%;
+    max-width: 320px;
+    height: auto;
+  }
+
+  .map-box img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* ✅ Re-added your other section classes */
+  .map-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .map-item {
+    width: 90%;
+  }
+
+  .about-container {
+    padding: 30px;
+  }
+
+  .about-section h2 {
+    font-size: 2em;
+  }
+
+  .about-section h3 {
+    font-size: 1.3em;
+  }
+}
+/* =============================
+   MAP DETAILS SECTION
+============================= */
+.map-details {
+  padding: 60px 20px;
+  background: rgba(0, 0, 0, 0.7);
+  color: rgba(0, 255, 255, 0.8);
+  text-align: center;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.44);
+}
+
+.map-details h2 {
+  font-size: 2em;
+  color: var(--neon-color);
+  margin-bottom: 20px;
+  text-shadow: 0 0 15px var(--neon-color);
+}
+
+.map-details p {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+.map-details .how-to-use {
+  list-style: none; /* remove default bullets */
+  padding-left: 0;
+  max-width: 750px;
+  margin: 25px auto;
+  text-align: left;
+  line-height: 1.8;
+  color: rgba(0, 255, 255, 0.85);
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+}
+
+.map-details .how-to-use li {
+  position: relative;
+  margin-bottom: 12px;
+  padding-left: 40px; /* space for icon */
+  font-size: 1.05em;
+}
+/*   LINKS INSIDE MAP DETAILS*/
+.map-details a {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff, 0 0 25px #00ffff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.map-details a:hover {
+  color: #ffffff;
+  text-shadow: 0 0 15px #00ffff, 0 0 35px #00ffff;
+  text-decoration: underline;
+}
+/* Icon styling */
+.map-details .how-to-use i {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  color: #00ffff;
+  text-shadow: 0 0 8px #00ffff, 0 0 20px #00ffff;
+  transition: 0.3s ease;
+}
+
+/* Glow hover effect */
+.map-details .how-to-use li:hover i {
+  color: #ffffff;
+  text-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff;
+}
+
+/* =============================
+   MAP DOWNLOAD SECTION
+============================= */
+.map-downloads {
+  padding: 60px 20px;
+  background: linear-gradient(180deg, #001010, #000);
+  text-align: center;
+  border-top: 1px solid rgba(0,255,255,0.18);
+  color: var(--neon-color);
+  text-shadow: 0 0 10px var(--neon-color);
+  box-shadow: 0 0 20px rgba(0,255,255,0.125) inset;
+  border-radius: 10px;
+}
+
+.map-downloads h2 {
+  font-size: 2.2em;
+  margin-bottom: 30px;
+  text-shadow: 0 0 20px var(--neon-color);
+}
+
+.tab-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid var(--neon-color);
+  color: var(--neon-color);
+  padding: 10px 25px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-shadow: 0 0 8px var(--neon-color);
+  transition: 0.3s;
+}
+
+.tab-btn:hover {
+  background: rgba(0,255,255,0.125);
+  box-shadow: 0 0 15px var(--neon-color)60;
+}
+
+.tab-btn.active {
+  background: var(--neon-color);
+  color: #0a0a0a;
+  box-shadow: 0 0 20px var(--neon-color), 0 0 40px var(--neon-color);
+}
+
+.tab-content {
+  display: none;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.map-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.map-item {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--neon-color);
+  border-radius: 10px;
+  padding: 20px;
+  width: 260px;
+  box-shadow: 0 0 10px rgba(0,255,255,0.25);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.map-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(0,255,255,0.9);
+}
+
+.map-item h3 {
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  color: var(--neon-color);
+  text-shadow: 0 0 10px var(--neon-color);
+}
+
+/* =============================
+   ABOUT SECTION
+============================= */
+.about-section {
+  position: relative;
+  padding: 100px 20px;
+  display: flex;
+  justify-content: center;
+  background: rgba(0, 0, 16, 0.4);
+  border-top: 1px solid rgba(0, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 50px rgba(0, 255, 255, 0.1) inset;
+  overflow: hidden;
+  z-index: 1;
+}
+
+
+.about-container {
+  max-width: 900px;
+  padding: 50px;
+  background: rgba(0, 0, 16, 0.6);
+  border: 2px solid var(--neon-color);
+  border-radius: 15px;
+  box-shadow: 0 0 30px var(--neon-color), 0 0 60px rgba(0,255,255,0.3) inset;
+  text-shadow: var(--neon-glow);
+  line-height: 1.8;
+  font-size: 1.1em;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.about-section h2 {
+  font-size: 2.8em;
+  text-align: center;
+  margin-bottom: 40px;
+  text-shadow: 0 0 20px var(--neon-color), 0 0 60px rgba(0,255,255,0.5);
+  animation: glowText 2.5s infinite alternate;
+}
+
+.about-section h3 {
+  font-size: 1.8em;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-shadow: 0 0 15px var(--neon-color), 0 0 40px rgba(0,255,255,0.5);
+}
+
+.about-section p {
+  margin-bottom: 25px;
+  color: rgba(0,255,255,0.8);
+}
+
+.about-section a {
+  color: var(--neon-color);
+  text-decoration: underline;
+  transition: 0.3s;
+}
+
+.about-section a:hover {
+  color: #fff;
+  text-shadow: 0 0 15px var(--neon-color);
+}
+/* =============================
+   FAQ Section Styles - Professional Neon Glow
+============================== */
+
+/* Container */
+.faq {
+  max-width: 800px;
+  margin: 80px auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Section title */
+.faq h1 {
+  text-align: center;
+  font-size: 2.8em;
+  margin-bottom: 40px;
+  color: var(--neon-color);
+  text-shadow: 0 0 20px var(--neon-color), 0 0 60px rgba(0,255,255,0.5);
+  transition: all 0.3s ease;
+}
+
+/* Each question box */
+.faq-item {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(0, 255, 255, 0.25);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.15);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.faq-item:hover {
+  box-shadow: 0 0 30px var(--neon-color), 0 0 80px var(--hover-glow);
+  transform: scale(1.02);
+}
+
+/* Question Header */
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  padding: 15px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--neon-color);
+  background: rgba(0, 0, 0, 0.4);
+  text-shadow: 0 0 10px var(--neon-color), 0 0 30px rgba(0,255,255,0.5);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Force question text left */
+.faq-question span:first-child {
+  text-align: left;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* spacing between icon and text */
+}
+
+/* Question icons before text (download, cogs, etc.) */
+.faq-question i {
+  font-size: 18px;
+  color: var(--neon-color);
+  text-shadow: 0 0 10px var(--neon-color), 0 0 25px rgba(0,255,255,0.4);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* + / − icon styling */
+.faq-icon {
+  font-size: 22px;
+  font-weight: bold;
+  margin-left: 10px;
+  transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+  color: var(--neon-color);
+  text-shadow: 0 0 10px var(--neon-color), 0 0 30px rgba(0,255,255,0.5);
+}
+
+/* When expanded */
+.faq-item.active .faq-icon {
+  transform: rotate(180deg);
+  color: #00ffff;
+  text-shadow: 0 0 15px var(--neon-color), 0 0 45px var(--hover-glow);
+}
+
+/* Answer section */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  color: var(--neon-answer);
+  background: rgba(0, 0, 0, 0.2);
+  line-height: 1.6;
+  padding: 0 20px;
+  text-align: left;
+  transition: max-height 0.5s ease, opacity 0.5s ease, padding 0.5s ease;
+}
+
+/* Expanded answer state */
+.faq-item.active .faq-answer {
+  max-height: 500px;
+  opacity: 1;
+  padding: 15px 20px;
+  animation: neonFadeIn 0.6s ease forwards;
+}
+
+/* Neon glow animation for expanding */
+@keyframes neonFadeIn {
+  0% {
+    opacity: 0;
+    text-shadow: 0 0 0 var(--neon-answer);
+  }
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 10px var(--neon-answer), 0 0 25px var(--hover-glow);
+  }
+}
+
+/* Optional subtle hover glow on answer text */
+.faq-item:hover .faq-answer {
+  text-shadow: 0 0 5px var(--neon-answer), 0 0 15px var(--hover-glow);
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .faq h1 {
+    font-size: 2em;
+  }
+  .faq-item {
+    margin-bottom: 12px;
+  }
+  .faq-answer {
+    font-size: 0.95em;
+  }
+  .faq-question {
+    flex-direction: row;
+    gap: 6px;
+  }
+}
+/*   LINK STYLING FOR FAQ SECTION */
+.faq a {
+  color: var(--neon-color);
+  font-weight: 600;
+  text-decoration: none;
+  text-shadow: 0 0 8px var(--neon-color), 0 0 25px rgba(0,255,255,0.4);
+  transition: all 0.3s ease;
+}
+
+.faq a:hover {
+  color: #ffffff;
+  text-shadow: 0 0 12px var(--neon-color), 0 0 35px var(--hover-glow);
+  text-decoration: underline;
+}
+
+.faq a:visited {
+  color: var(--neon-color); /* keep same color for visited links */
+}
+
+/* ------------------------------
+   SYSTEM REQUIREMENTS (Neon Glow Animated)
+--------------------------------*/
+.system-requirements {
+  position: relative;
+  padding: 60px 20px;
+  text-align: center;
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff90;
+  background: rgba(0, 0, 0, 0.6);
+  border-top: 1px solid #00ffff30;
+  border-bottom: 1px solid #00ffff30;
+  box-shadow: 0 0 30px #00ffff20 inset;
+  overflow: hidden;
+  margin-bottom: 60px; /* Added spacing below */
+}
+
+/* Pulsing cyan light in background */
+.system-requirements::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle at 50% 50%, #00ffff18, transparent 70%);
+  animation: pulseGlow 6s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none; /* ✅ allow mouse/touch through */
+}
+
+/* Animated border line effect */
+.system-requirements::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid transparent;
+  border-image: linear-gradient(120deg, transparent, #00ffff, transparent) 1;
+  animation: borderGlow 6s linear infinite;
+  border-radius: 10px;
+  pointer-events: none;
+}
+.system-requirements h2 {
+  font-size: clamp(1.8em, 3vw, 2.4em);
+  color: #00ffff;
+  text-shadow: 0 0 15px #00ffff;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.system-requirements p {
+  max-width: 800px;
+  margin: 0 auto 40px;
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #00ffffcc;
+  text-shadow: 0 0 8px #00ffff40;
+  position: relative;
+  z-index: 1;
+}
+
+.requirements {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.req-box {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid #00ffff50;
+  box-shadow: 0 0 20px #00ffff30, inset 0 0 10px #00ffff20;
+  border-radius: 10px;
+  padding: 25px 30px;
+  width: 340px;
+  text-align: left;
+  transition: 0.3s ease;
+}
+
+.req-box:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 30px #00ffff80, inset 0 0 15px #00ffff40;
+}
+
+.req-box h3 {
+  color: #00ffff;
+  text-align: center;
+  font-size: 1.4em;
+  text-shadow: 0 0 12px #00ffff;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #00ffff40;
+  padding-bottom: 6px;
+}
+
+.req-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.req-box li {
+  margin: 8px 0;
+  color: #00ffffcc;
+  text-shadow: 0 0 6px #00ffff40;
+  font-size: 0.95em;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .requirements {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .req-box {
+    width: 90%;
+  }
+}
+/* ------------------------------
+   Download and INSTALLATION INSTRUCTIONS (Neon Theme)
+--------------------------------*/
+.install-instructions {
+  position: relative;
+  padding: 60px 20px;
+  text-align: center;
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff90;
+  background: rgba(0, 0, 0, 0.6);
+  border-top: 1px solid #00ffff30;
+  border-bottom: 1px solid #00ffff30;
+  box-shadow: 0 0 30px #00ffff20 inset;
+  overflow: hidden;
+  margin-top: 60px; /* Added spacing above */
+}
+
+.install-instructions h2 {
+  font-size: clamp(1.8em, 3vw, 2.4em);
+  color: #00ffff;
+  text-shadow: 0 0 15px #00ffff;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.install-instructions p {
+  max-width: 800px;
+  margin: 0 auto 40px;
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #00ffffcc;
+  text-shadow: 0 0 8px #00ffff40;
+  position: relative;
+  z-index: 1;
+}
+
+.install-instructions .instruction-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 700px;
+  text-align: left;
+  position: relative;
+  z-index: 1;
+}
+
+.install-instructions .instruction-list li {
+  margin: 12px 0;
+  line-height: 1.6;
+  color: #00ffffcc;
+  text-shadow: 0 0 6px #00ffff40;
+  transition: 0.3s ease;
+  font-size: 1.05em;
+}
+
+.install-instructions .instruction-list li i {
+  margin-right: 10px;
+  color: #00ffff;
+  text-shadow: 0 0 8px #00ffff80;
+}
+
+.install-instructions .instruction-list li:hover {
+  color: #00ffff;
+  text-shadow: 0 0 12px #00ffff;
+  transform: translateX(4px);
+}
+
+/* ------------------------------
+   BUTTON STYLE (Matches other buttons)
+--------------------------------*/
+.install-instructions .button {
+  display: inline-block;
+  padding: 12px 25px;
+  margin-bottom: 40px;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #000000; /* <-- Change to your website background color */
+  background-color: #00ffff; /* Neon accent */
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.install-instructions .button:hover {
+  background-color: #00e6e6;
+  transform: scale(1.05);
+}
+
+/* Glowing pulse animation background */
+.install-instructions::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle at 50% 50%, #00ffff15, transparent 60%);
+  animation: pulseGlow 6s ease-in-out infinite;
+  z-index: 0;
+}
+
+/* Reuse the same pulseGlow animation */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.5; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .install-instructions .instruction-list {
+    max-width: 90%;
+  }
+
+  .install-instructions .button {
+    padding: 10px 20px;
+    font-size: 1em;
+  }
+}
+
+/* ------------------------------
+   ANIMATIONS
+--------------------------------*/
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { text-shadow: 0 0 5px var(--neon-color), 0 0 15px var(--neon-color), 0 0 30px var(--neon-color); }
+  20%, 22%, 24%, 55% { text-shadow: none; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes glowIn {
+  from { opacity: 0; text-shadow: none; }
+  to { opacity: 1; text-shadow: 0 0 10px var(--neon-color), 0 0 20px var(--neon-color); }
+}
+@keyframes popupFade {
+  0% { opacity: 0; transform: translate(-50%, -60%); }
+  100% { opacity: 1; transform: translate(-50%, -50%); }
+}
+@keyframes neonBorder {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes scrollMarquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes parallaxMove {
+  from { transform: translateY(-20px); }
+  to { transform: translateY(20px); }
+}
+
+@keyframes glowTitle {
+  from { text-shadow: 0 0 15px var(--neon-color), 0 0 30px var(--neon-color); }
+  to { text-shadow: 0 0 25px var(--neon-color), 0 0 60px var(--neon-color); }
+}
+
+@keyframes fadeInGallery, fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes glowText {
+  from { text-shadow: 0 0 15px var(--neon-color), 0 0 30px rgba(0,255,255,0.5); }
+  to { text-shadow: 0 0 30px var(--neon-color), 0 0 80px rgba(0,255,255,0.8); }
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes borderGlow {
+  0% { border-image-source: linear-gradient(0deg, transparent, #00ffff, transparent); }
+  50% { border-image-source: linear-gradient(180deg, transparent, #00ffff, transparent); }
+  100% { border-image-source: linear-gradient(360deg, transparent, #00ffff, transparent); }
+}
+/* Add all your other @keyframes here, just once each! */
+
+/* SMOOTH SCROLLING */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ------------------------------
+   Common Page Content Section
+   (IGI2, IGI2 Map, HcLauncheR, HCCommander, Contact, About, FAQ)
+--------------------------------*/
+.home-text,
+.igi2-text,
+.igi2map-text,
+.hclauncher-text,
+.hccommander-text,
+.hcban-text,
+.contact-text,
+.about-text,
+.faq-text {
+  max-width: 1000px;          /* keeps text nicely centered and readable */
+  margin: 60px auto;          /* centers the section and adds top/bottom space */
+  padding: 20px 30px;
+  text-align: left;           /* align text properly */
+  line-height: 1.7;
+  color: #00ffff;             /* cyan glow color */
+  background: rgba(0, 0, 0, 0.3); /* subtle transparent background */
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+/* Headings inside those sections */
+.home-text h2,
+.igi2-text h2,
+.igi2map-text h2,
+.hclauncher-text h2,
+.hccommander-text h2,
+.hcban-text h2,
+.contact-text h2,
+.about-text h2,
+.faq-text h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+  margin-bottom: 20px;
+}
+
+/* Paragraphs inside those sections */
+.home-text p,
+.igi2-text p,
+.igi2map-text p,
+.hclauncher-text p,
+.hccommander-text p,
+.hcban-text p,
+.contact-text p,
+.about-text p,
+.faq-text p {
+  margin-bottom: 15px;
+  font-size: 1rem;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+}
+/* Links inside common text sections */
+.home-text a,
+.igi2-text a,
+.igi2map-text a,
+.hclauncher-text a,
+.hccommander-text a,
+.hcban-text a,
+.contact-text a,
+.about-text a,
+.faq-text a {
+  color: var(--neon-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.home-text a:hover,
+.igi2-text a:hover,
+.igi2map-text a:hover,
+.hclauncher-text a:hover,
+.hccommander-text a:hover,
+.hcban-text a:hover,
+.contact-text a:hover,
+.about-text a:hover,
+.faq-text a:hover {
+  text-shadow: 0 0 10px var(--neon-color), 0 0 20px var(--neon-color);
+}
+
+/* =============================
+   HcLauncheR VIDEO SECTION
+============================= */
+
+.launcher-video{
+  padding:80px 20px;
+  text-align:center;
+}
+
+.video-container-wrapper{
+  max-width:1000px;
+  margin:auto;
+}
+
+.launcher-video h2{
+  font-size:32px;
+  margin-bottom:15px;
+}
+
+.video-description{
+  max-width:700px;
+  margin:auto;
+  margin-bottom:35px;
+  line-height:1.6;
+  color:#ccc;
+}
+
+.video-frame{
+  position:relative;
+  padding-bottom:56.25%;
+  height:0;
+  overflow:hidden;
+  border-radius:10px;
+  box-shadow:0 0 25px rgba(0,0,0,0.6);
+}
+
+.video-frame iframe{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+
+/* ------------------------------
+   COOKIE / PRIVACY / TERMS BOX STYLE
+--------------------------------*/
+/* ------------------------------
+   POLICY PAGES (Cookie / Privacy / Terms)
+--------------------------------*/
+.cookie-section,
+.privacy-section,
+.terms-section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 20px;
+  min-height: 80vh;
+}
+
+.content-container {
+  background: rgba(0, 0, 0, 0.45); /* slightly transparent to match particle bg */
+  border: 1px solid var(--neon-color);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.6); /* neon cyan glow */
+  border-radius: 20px;
+  padding: 35px 45px;
+  max-width: 950px;
+  width: 100%;
+  color: #e0faff; /* soft white-blue text */
+  text-align: left;
+  backdrop-filter: blur(10px);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.content-container h2,
+.content-container h3 {
+  color: var(--neon-color);
+  text-shadow: 0 0 12px var(--neon-color);
+  margin-top: 25px;
+}
+
+.content-container p,
+.content-container ul {
+  line-height: 1.7;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.content-container ul {
+  padding-left: 25px;
+}
+
+.content-container a {
+  color: var(--neon-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.content-container a:hover {
+  text-shadow: 0 0 10px var(--neon-color);
+}
+
+.updated-date {
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #b5faff;
+}
+
+.footer-note {
+  margin-top: 25px;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* ------------------------------
+   COOKIE CONSENT BANNER (Optimized)
+--------------------------------*/
+.cookie-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  width: calc(100% - 40px);
+  max-width: 800px;
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid rgba(0, 255, 255, 0.4);
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.25);
+  border-radius: 12px;
+  color: #e0ffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 15px 20px;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease-in-out;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.cookie-banner.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  visibility: visible;
+}
+
+.cookie-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  text-align: left;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.cookie-content i {
+  font-size: 20px;
+  color: cyan;
+  margin-top: 3px;
+}
+
+/* ✅ Cookie Policy link color fixed */
+.cookie-content a {
+  color: cyan;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.cookie-content a:hover {
+  color: #00ffff;
+  text-decoration: underline;
+}
+
+.cookie-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.cookie-buttons button {
+  background: linear-gradient(90deg, cyan, #00ffff80);
+  border: none;
+  color: #000;
+  font-weight: bold;
+  padding: 8px 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.cookie-buttons button:hover {
+  background: cyan;
+  box-shadow: 0 0 8px cyan;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cookie-banner {
+    bottom: 10px;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .cookie-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .cookie-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* ------------------------------
+   Changelog (Neon Theme)
+--------------------------------*/
+.changelog {
+  position: relative;
+  padding: 60px 20px;
+  text-align: center;
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff90;
+  background: rgba(0, 0, 0, 0.6);
+  border-top: 1px solid #00ffff30;
+  border-bottom: 1px solid #00ffff30;
+  box-shadow: 0 0 30px #00ffff20 inset;
+  overflow: hidden;
+  margin-top: 60px; /* Added spacing above */
+}
+
+.changelog h2 {
+  font-size: clamp(1.8em, 3vw, 2.4em);
+  color: #00ffff;
+  text-shadow: 0 0 15px #00ffff;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.changelog p {
+  max-width: 800px;
+  margin: 0 auto 40px;
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #00ffffcc;
+  text-shadow: 0 0 8px #00ffff40;
+  position: relative;
+  z-index: 1;
+}
+
+.changelog .update-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 700px;
+  text-align: left;
+  position: relative;
+  z-index: 1;
+}
+
+.changelog .update-list li {
+  margin: 12px 0;
+  line-height: 1.6;
+  color: #00ffffcc;
+  text-shadow: 0 0 6px #00ffff40;
+  transition: 0.3s ease;
+  font-size: 1.05em;
+}
+
+.changelog .update-list li i {
+  margin-right: 10px;
+  color: #00ffff;
+  text-shadow: 0 0 8px #00ffff80;
+}
+
+.changelog .update-list li:hover {
+  color: #00ffff;
+  text-shadow: 0 0 12px #00ffff;
+  transform: translateX(4px);
+}

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Portal-Homcoming Gaming</title>
+ <!-- Favicon -->
+  <link rel="icon" href="logo.webp" type="image/webp">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- Turnstile -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #00ffff;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 30px 20px;
+  box-sizing: border-box;
+}
+
+.payment-container {
+  background: rgba(0,0,0,0.95);
+  border: 1px solid #00ffff50;
+  box-shadow: 0 0 40px #00ffff30;
+  border-radius: 15px;
+  padding: 35px;
+  width: 100%;
+  max-width: 950px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  text-shadow: 0 0 15px #00ffff;
+  margin-bottom: 10px;
+}
+
+.price {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  margin: 10px 0 5px;
+}
+
+.no-refund {
+  text-align: center;
+  font-size: 0.85em;
+  color: #00ffffaa;
+  margin-bottom: 15px;
+}
+
+.product-select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #00ffff50;
+  background: #050505;
+  color: #00ffff;
+}
+
+.payment-content {
+  display: flex;
+  gap: 40px;
+  margin-top: 5px;
+  align-items: flex-start;
+}
+
+.left-side {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qr-box img {
+  width: 220px;
+  border-radius: 10px;
+  border: 1px solid #00ffff;
+  box-shadow: 0 0 20px #00ffff50;
+}
+
+.upi-id {
+  margin-top: 15px;
+  font-size: 1.2em;
+  background: #0a0a0a;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #00ffff50;
+}
+
+.copy-btn {
+  margin-top: 10px;
+  padding: 8px 15px;
+  background: #00ffff;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.instructions {
+  margin-top: 15px;
+  font-size: 0.95em;
+  color: #00ffffcc;
+}
+
+.right-side {
+  flex: 1;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="file"],
+input[type="number"] {
+  background: #050505;
+  border: 1px solid #00ffff50;
+  color: #00ffff;
+  padding: 12px;
+  border-radius: 8px;
+  width: 100%;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.submit-btn {
+  padding: 12px;
+  background: #00ffff;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+}
+
+.note {
+  margin-top: 25px;
+  text-align: center;
+  font-size: 0.9em;
+  color: #00ffffaa;
+}
+
+.agreement-box {
+  margin-bottom: 15px;
+  font-size: 0.9em;
+}
+
+.agreement-box a {
+  color: #00ffff;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .payment-content {
+    flex-direction: column;
+  }
+}
+/* ===== POPUP (Same as contact page) ===== */
+#form-popup {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #00ffff;
+  color: #000;
+  padding: 15px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 0 20px #00ffff;
+  z-index: 9999;
+  animation: fadeInOut 4s ease forwards;
+}
+
+#form-popup.error {
+  background: red;
+  color: #fff;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(20px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(20px); }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="payment-container">
+
+  <h1 id="productTitle"><i class="fas fa-bolt"></i> HcCommandeR</h1>
+  <div class="price" id="priceText">₹299</div>
+  <div class="no-refund">
+    Digital product. All payments are final and non-refundable.
+  </div>
+
+  <select class="product-select" id="productSelect">
+    <option value="commander">HcCommandeR - ₹299</option>
+    <option value="hcban">HcBan - ₹250</option>
+    <option value="donate">Donate</option>
+  </select>
+
+  <div class="payment-content">
+
+    <div class="left-side">
+      <div class="qr-box">
+        <img src="images/upi.png" alt="UPI QR Code">
+      </div>
+
+      <div class="upi-id">
+        UPI ID: <strong id="upiText">8116542482@apl</strong><br>
+        <button type="button" class="copy-btn" onclick="copyUPI()">Copy UPI ID</button>
+      </div>
+
+      <div class="instructions">
+        🇮🇳 Scan QR → Pay → Upload screenshot<br>
+        Fake or invalid payments will result in permanent blacklist.
+      </div>
+    </div>
+
+    <div class="right-side">
+      <form id="upiForm"
+      method="POST"
+      action="/upi-payment"
+      enctype="multipart/form-data">
+
+
+        
+        <input type="hidden" name="product" id="selectedProduct" value="HcCommandeR">
+
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <input type="text" name="txn" placeholder="Transaction ID" required>
+        <input type="file" name="screenshot" accept=".jpg,.jpeg,.png" required>
+
+
+        <!-- AGREEMENT CHECKBOX -->
+        <div class="agreement-box">
+          <label>
+            <input type="checkbox" id="agreeCheck" required>
+            I agree to the 
+            <a href="agreement.html" target="_blank">
+              Software License & Sales Agreement
+            </a>
+            and understand that all payments are final and non-refundable.
+          </label>
+        </div>
+<!-- TURNSTILE -->
+<div class="cf-turnstile" data-sitekey="0x4AAAAAACcg2TSb6eew6h6h"></div>
+        <button type="submit" class="submit-btn">
+          Submit Payment
+        </button>
+
+        <p id="statusMessage"></p>
+      </form>
+    </div>
+
+  </div>
+
+  <div class="note">
+    After verification, you will receive the download link within 10–30 minutes via your email.
+  </div>
+
+</div>
+<!-- Popup -->
+<div id="form-popup"></div>
+<script>
+// ===============================
+// PRODUCT SELECTION LOGIC
+// ===============================
+const productSelect = document.getElementById("productSelect");
+const productTitle = document.getElementById("productTitle");
+const priceText = document.getElementById("priceText");
+const hiddenProduct = document.getElementById("selectedProduct");
+
+if (productSelect) {
+  productSelect.addEventListener("change", function () {
+    const value = this.value;
+
+    if (value === "commander") {
+      productTitle.innerHTML = '<i class="fas fa-bolt"></i> HcCommandeR';
+      priceText.innerText = "₹299";
+      hiddenProduct.value = "HcCommandeR";
+    } 
+    else if (value === "hcban") {
+      productTitle.innerHTML = '<i class="fas fa-shield-halved"></i> HcBan';
+      priceText.innerText = "₹250";
+      hiddenProduct.value = "HcBan";
+    } 
+    else if (value === "donate") {
+      productTitle.innerHTML = '<i class="fas fa-heart"></i> Donate';
+      priceText.innerText = "Custom Amount";
+      hiddenProduct.value = "Donate";
+    }
+  });
+}
+
+// ===============================
+// FILE VALIDATION (5MB + JPG/PNG)
+// ===============================
+const fileInput = document.querySelector('input[name="screenshot"]');
+
+if (fileInput) {
+  fileInput.addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file) return;
+
+    const allowedTypes = ["image/jpeg", "image/png"];
+    const maxSize = 1 * 1024 * 1024; // 1MB
+
+    if (!allowedTypes.includes(file.type)) {
+      alert("Only JPG and PNG images are allowed.");
+      this.value = "";
+      return;
+    }
+
+    if (file.size > maxSize) {
+      alert("File size must be less than 1MB.");
+      this.value = "";
+      return;
+    }
+  });
+}
+
+// ===============================
+// FORM SUBMISSION LOGIC
+// ===============================
+const form = document.getElementById("upiForm");
+const popup = document.getElementById("form-popup");
+const submitBtn = document.querySelector(".submit-btn");
+
+if (form && popup && submitBtn) {
+
+  form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Submitting...";
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("/upi-payment", {
+        method: "POST",
+        body: formData
+      });
+
+      popup.classList.remove("error");
+
+      if (response.ok) {
+        popup.innerText = "Payment submitted successfully! We will verify and contact you shortly.";
+        form.reset();
+
+        // Reset product to default after submit
+        if (productSelect) {
+          productSelect.value = "commander";
+          productTitle.innerHTML = '<i class="fas fa-bolt"></i> HcCommandeR';
+          priceText.innerText = "₹299";
+          hiddenProduct.value = "HcCommandeR";
+        }
+
+        // Reset Turnstile (if exists)
+        if (window.turnstile) {
+          turnstile.reset();
+        }
+
+      } else {
+        popup.innerText = "Something went wrong. Please try again.";
+        popup.classList.add("error");
+      }
+
+    } catch (error) {
+      popup.innerText = "Server error. Please try again.";
+      popup.classList.add("error");
+    }
+
+    popup.style.display = "block";
+
+    setTimeout(() => {
+      popup.style.display = "none";
+    }, 4000);
+
+    submitBtn.disabled = false;
+    submitBtn.innerText = "Submit Payment";
+  });
+
+}
+
+
+// ===============================
+// COPY UPI FUNCTION
+// ===============================
+function copyUPI() {
+  const upiElement = document.getElementById("upiText");
+  if (!upiElement) return;
+
+  const text = upiElement.innerText;
+
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      alert("UPI ID Copied!");
+    })
+    .catch(() => {
+      alert("Failed to copy. Please copy manually.");
+    });
+}
+</script>
+
+
+
+</body>
+</html>

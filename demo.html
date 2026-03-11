@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HcCommandDeR Demo | Homecoming Gaming</title>
+
+<style>
+body{
+  margin:0;
+  background:#bfbfbf;
+  font-family:Tahoma, Segoe UI, sans-serif;
+  font-size:13px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+/* POPUP */
+.popup{
+  position:absolute;
+  width:420px;
+  background:#dcdcdc;
+  border:1px solid #7a7a7a;
+  padding:15px;
+  box-shadow:2px 2px 5px rgba(0,0,0,0.3);
+}
+.popup input{
+  width:100%;
+  padding:4px;
+  border:1px solid #7a7a7a;
+  margin-bottom:15px;
+}
+.popup-buttons{
+  display:flex;
+  justify-content:space-between;
+}
+.popup button{
+  width:100px;
+  padding:4px;
+  border:1px solid #7a7a7a;
+  background:#e6e6e6;
+  cursor:pointer;
+}
+
+/* MAIN WINDOW */
+.main-window{
+  width:1100px;
+  height:590px;
+  background:#dcdcdc;
+  border:1px solid #7a7a7a;
+  display:none;
+  flex-direction:column;
+}
+
+/* TOP */
+.top-bar{
+  padding:10px 10px 0 10px;   /* 👈 small top gap */
+  height:32px;
+  display:flex;
+  align-items:center;
+  border-bottom:1px solid #7a7a7a;
+  gap:180px;
+}
+
+.button-bar{
+  padding:6px 10px;
+  border-bottom:1px solid #7a7a7a;
+  display:flex;
+  align-items:center;
+  gap:90px;
+}
+.button-bar button{
+  padding:3px 10px;
+  border:1px solid #7a7a7a;
+  background:#e6e6e6;
+  cursor:pointer;
+}
+
+/* TABS */
+.tabs{
+  display:flex;
+  border-bottom:1px solid #7a7a7a;
+  background:#e6e6e6;
+}
+.tab{
+  padding:6px 15px;
+  cursor:pointer;
+  border-right:1px solid #7a7a7a;
+}
+.tab.active{
+  background:white;
+  font-weight:bold;
+}
+
+.tab-content{
+  flex:1;
+  display:none;
+  flex-direction:column;
+}
+.tab-content.active{
+  display:flex;
+}
+
+/* TABLES */
+.tables{
+  display:flex;
+  gap:5px;
+  padding:5px;
+  height:160px;
+}
+.table-box{
+  flex:1;
+  border:1px solid #7a7a7a;
+  background:white;
+  overflow:auto;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+  font-size:12px;
+}
+thead th{
+  background:#e6e6e6;
+  border:1px solid #7a7a7a;
+  padding:4px;
+}
+tbody tr{ height:26px; }
+td{
+  border:1px solid #c0c0c0;
+  padding:4px;
+}
+tr.selected{
+  background:#3399ff;
+  color:white;
+}
+
+/* ===== LOGS ===== */
+.logs{
+  display:flex;
+  gap:5px;
+  padding:5px;
+  height:200px;
+}
+
+.log-box{
+  flex:1;
+  border:1px solid #7a7a7a;
+  background:white;
+  padding:5px;
+  overflow:auto;
+  font-family:Consolas;
+  font-size:12px;
+}
+
+/* COMMAND BAR */
+.command-bar{
+  display:flex;
+  gap:8px;
+  padding:6px;
+  border-top:1px solid #7a7a7a;
+}
+.command-bar input{
+  flex:1;
+  padding:4px;
+  border:1px solid #7a7a7a;
+}
+.command-bar button{
+  padding:4px 12px;
+  border:1px solid #7a7a7a;
+  background:#e6e6e6;
+  cursor:pointer;
+}
+
+/* SETTINGS */
+.settings-container{
+  padding:25px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px 60px;
+}
+.settings-container input,
+.settings-container select{
+  padding:3px;
+  border:1px solid #7a7a7a;
+}
+
+/* TOOLS */
+.tools-container{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.tools-grid{
+  display:grid;
+  grid-template-columns:150px 150px;
+  gap:25px 40px;
+}
+.tools-grid button{
+  padding:10px;
+  border:1px solid #7a7a7a;
+  background:#e6e6e6;
+  cursor:pointer;
+}
+.tools-grid button:last-child{
+  grid-column:span 2;
+}
+/* ===== Crash Flow ===== */
+.crash-bar{
+  display:inline-block;
+  padding:2px 8px;
+  border:1px solid #7a7a7a;
+  background:#00cc00;
+  animation:blink 1s infinite;
+}
+
+@keyframes blink{
+  0%{background:#00cc00;}
+  50%{background:#008800;}
+  100%{background:#00cc00;}
+}
+/* BOTTOM */
+.bottom-bar{
+  border-top:1px solid #7a7a7a;
+  padding:5px 10px;
+  
+}
+/* WINDOW TITLE BAR */
+.window-title{
+  background:linear-gradient(to bottom, #0a246a, #3a6ea5);
+  color:white;
+  padding:6px 10px;
+  font-weight:bold;
+  font-size:13px;
+  border-bottom:1px solid #000080;
+  width:100%;              /* 🔥 make full width */
+  box-sizing:border-box;   /* 🔥 prevents overflow */
+}
+
+/* popup TITLE BAR */
+.popup{
+  width:400px;
+  background:#dcdcdc;
+  border:2px solid #000080;
+  position:absolute;
+  box-shadow:3px 3px 10px rgba(0,0,0,0.4);
+  padding:0;              /* 🔥 IMPORTANT */
+  box-sizing:border-box;  /* 🔥 IMPORTANT */
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- POPUPS -->
+<div id="popup1" class="popup">
+
+  <div class="window-title">
+    HcCommander - IGI-2 Server Controller
+  </div>
+
+  <div style="padding:15px;">
+    <b>Enter IP Address Here..</b><br><br>
+    <input type="text" id="ip" value="0.0.0.0">
+
+    <div class="popup-buttons">
+      <button onclick="next1()">OK</button>
+      <button onclick="cancel()">Cancel</button>
+    </div>
+  </div>
+
+</div>
+
+
+<div id="popup2" class="popup" style="display:none;">
+
+  <div class="window-title">
+    HcCommander - IGI-2 Server Controller
+  </div>
+
+  <div style="padding:15px;">
+    <b>Enter Server Port</b><br><br>
+    <input type="text" id="port" value="26001">
+
+    <div class="popup-buttons">
+      <button onclick="next2()">OK</button>
+      <button onclick="cancel()">Cancel</button>
+    </div>
+  </div>
+
+</div>
+
+
+<div id="popup3" class="popup" style="display:none;">
+
+  <div class="window-title">
+    HcCommander - IGI-2 Server Controller
+  </div>
+
+  <div style="padding:15px;">
+    <b>Enter RCON Password</b><br><br>
+    <input type="password" id="pass">
+
+    <div class="popup-buttons">
+      <button onclick="finish()">OK</button>
+      <button onclick="cancel()">Cancel</button>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- MAIN WINDOW -->
+<div id="main" class="main-window">
+<div class="window-title">
+  HcCommader - IGI-2 Server Controller
+</div>
+
+<div class="top-bar">
+  <div><b>Name :</b> IGI-2 HOMECOMING</div>
+  <div><b>Time :</b> 09:32</div>
+  <div><b>Map :</b> Pribois villa</div>
+  <div><b>Players :</b> 8 / 15</div>
+</div>
+
+<div class="button-bar">
+  <button>Disable Server</button>
+  <button>Kick All</button>
+  <span><b>Visit :</b> 103</span>
+  <span><b>Uptime :</b> 42h 11m</span>
+  <span><b>Pass :</b> Yes</span>
+<span><b>Crash Flow :</b> <span class="crash-bar">||||</span></span>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('mainTab',this)">Main</div>
+  <div class="tab" onclick="switchTab('settingsTab',this)">Settings</div>
+  <div class="tab" onclick="switchTab('toolsTab',this)">Tools</div>
+</div>
+
+<!-- MAIN TAB -->
+<div id="mainTab" class="tab-content active">
+
+<div class="tables">
+  <div class="table-box">
+    <table id="table1">
+      <thead><tr>
+      <th>ID</th><th>Nick</th><th>Team</th><th>Score</th><th>IP</th><th>Ping</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="table-box">
+    <table id="table2">
+      <thead><tr>
+      <th>ID</th><th>Nick</th><th>Team</th><th>Score</th><th>IP</th><th>Ping</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="logs">
+  <div class="log-box" id="log1">
+    [12:01] Pribois Villa Map is running...<br>
+    [12:02] SNIPER has joined the game<br>
+	[12:02] Ghost has joined the game<br>
+	[12:03] Shooter has joined the game<br>
+	[12:03] Baap Ji has joined the game<br>
+	[12:05] Hunter has joined the game<br>
+	[12:12] LinuxMan has joined the game<br>
+	[01:02] Viper has joined the game<br>
+	[01:02] SNIPER: hi guys. Welcome to everyone<br>
+	[02:02] Shadow has joined the game<br>
+	[02:12] Shooter: Hi <br>
+	
+  </div>
+
+  <div class="log-box">
+  [12:01] Server Connected...<br>
+  [12:01] Minimize Server Window...<br>
+  [12:02] Optimization Successful<br>
+    [12:03] Warning Baap JI for bad language.<br>
+    [12:04] Kick Baap Ji ! bad language.
+	[12:05] Warnning Shooter ! SK.
+	[12:14] Warnning Ghost ! TK
+  </div>
+</div>
+
+<div class="command-bar">
+  <button>Clear</button>
+  <input type="text">
+  <button>Send Announce</button>
+  <button>Clear</button>
+  <input type="text">
+  <button>Send Commands</button>
+</div>
+
+</div>
+
+<!-- SETTINGS TAB -->
+<div id="settingsTab" class="tab-content">
+  <div class="settings-container">
+    <label><input type="checkbox"> Welcome Players</label>
+    <label><input type="checkbox"> Censorship</label>
+    <label><input type="checkbox"> SK/TK Warning</label>
+    <label><input type="checkbox"> Ranking</label>
+    <label><input type="checkbox"> Kick after Warning</label>
+    <label><input type="checkbox"> Show players IN / OUT</label>
+  </div>
+</div>
+
+<!-- TOOLS TAB -->
+<div id="toolsTab" class="tab-content">
+  <div class="tools-container">
+    <div class="tools-grid">
+      <button>Kill Logs</button>
+      <button>Bad Word Logs</button>
+      <button>Optimize IP</button>
+      <button>Player Finder</button>
+      <button>Announce Sender</button>
+      <button>Unban Players</button>
+      <button>HcBan</button>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-bar">
+  Uptime : 42:11:26 &nbsp;&nbsp; Product : v1.0.0.0 &nbsp;&nbsp; Remaining Items : 183 &nbsp;&nbsp; Created By : SNIPER
+</div>
+
+</div>
+
+<script>
+function next1(){ popup1.style.display="none"; popup2.style.display="block"; }
+function next2(){ popup2.style.display="none"; popup3.style.display="block"; }
+function finish(){
+  var ipValue=document.getElementById("ip").value;
+  var portValue=document.getElementById("port").value;
+  popup3.style.display="none";
+  main.style.display="flex";
+  log1.innerHTML+="<br>[Connected] "+ipValue+":"+portValue;
+  loadFakePlayers();
+}
+
+function cancel(){ alert("Connection Cancelled"); }
+
+function loadFakePlayers(){
+  let players=[
+    ["SNIPER","IGI",25,"152.59.163.70",45],
+    ["Ghost","IGI",18,"192.168.0.10",60],
+	["Baap JI","CONS",38,"112.108.122.10",30],
+    ["Hunter","CONS",32,"10.10.1.25",35],
+    ["Viper","CONS",11,"172.16.5.9",70],
+    ["Shooter","IGI",40,"108.32.8.56",20],
+	["LinuxMan","IGI",32,"49.18.112.32",80],
+    ["Shadow","CONS",40,"48.85.28.8",20]
+  ];
+  let body1=document.querySelector("#table1 tbody");
+  let body2=document.querySelector("#table2 tbody");
+  body1.innerHTML=""; body2.innerHTML="";
+  let igi=players.filter(p=>p[1]=="IGI");
+  let cons=players.filter(p=>p[1]=="CONS");
+
+  for(let i=0;i<10;i++){
+  let r=document.createElement("tr");
+
+  if(igi[i]){
+    r.innerHTML="<td>"+(i+1)+"</td><td>"+igi[i][0]+"</td><td>"+igi[i][1]+"</td><td>"+igi[i][2]+"</td><td>"+igi[i][3]+"</td><td>"+igi[i][4]+"</td>";
+    r.onclick=function(){selectRow(this);};
+  }else{
+    r.innerHTML="<td></td><td></td><td></td><td></td><td></td><td></td>";
+  }
+
+  body1.appendChild(r);
+}
+
+
+  for(let i=0;i<10;i++){
+  let r=document.createElement("tr");
+
+  if(cons[i]){
+    r.innerHTML="<td>"+(i+1)+"</td><td>"+cons[i][0]+"</td><td>"+cons[i][1]+"</td><td>"+cons[i][2]+"</td><td>"+cons[i][3]+"</td><td>"+cons[i][4]+"</td>";
+    r.onclick=function(){selectRow(this);};
+  }else{
+    r.innerHTML="<td></td><td></td><td></td><td></td><td></td><td></td>";
+  }
+
+  body2.appendChild(r);
+}
+}
+
+function selectRow(row){
+  document.querySelectorAll("tr").forEach(r=>r.classList.remove("selected"));
+  row.classList.add("selected");
+}
+
+function switchTab(id,el){
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  document.querySelectorAll(".tab-content").forEach(c=>c.classList.remove("active"));
+  el.classList.add("active");
+  document.getElementById(id).classList.add("active");
+}
+</script>
+
+</body>
+</html>

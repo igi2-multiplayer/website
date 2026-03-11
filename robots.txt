@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://igi2multiplayer.pages.dev/sitemap.xml
+
