@@ -685,6 +685,27 @@ footer i {
   color: #00ffffcc;
   font-size: 0.95em;
 }
+/* Make links match your website color */
+.project-details a,
+.instruction-list a {
+  color: #00ffff;        /* main website cyan */
+  text-decoration: none; /* remove underline if desired */
+}
+
+.project-details a:visited,
+.instruction-list a:visited {
+  color: #00ffff;        /* same cyan after visiting */
+}
+
+.project-details a:hover,
+.instruction-list a:hover {
+  color: #00cccc;        /* optional hover effect */
+}
+
+.project-details a:active,
+.instruction-list a:active {
+  color: #00ffff;        /* when clicking */
+}
 /* =============================
    Image Preview Overlay (Lightbox)
 ============================= */

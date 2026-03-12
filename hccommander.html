@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HcCommanDeR | IGI-2 Server Host & HcBan | Homecoming Gaming</title>
+  <title>HcCommanDeR | IGI-2 Multiplayer Server Host</title>
 
   <!-- ✅ SEO Meta Description -->
   <meta name="description" content="Download HcCommanDeR — the ultimate IGI-2 server hosting and admin control tool by Homecoming Gaming. Manage igi2 multiplayer servers, monitor players, and secure your IGI2 server with HcBan ease.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="googlebot" content="index, follow, max-image-preview:large">
   <meta name="application-name" content="IGI-2 Multiplayer">
+  <meta name="apple-mobile-web-app-title" content="IGI-2 Multiplayer">
   <!-- ✅ Keywords -->
   <meta name="keywords" content="HcCommanDeR, IGI2 Commander, IGI2 server host, IGI2 RCON,HcBan, IGI2 admin tool, IGI2 multiplayer server, IGI2 master server, Homecoming Gaming, IGI2 control panel, IGI2 HcBan, IGI2 security, IGI2 multiplayer">
 
@@ -33,34 +34,60 @@
   <!-- ✅ Favicon -->
   <link rel="icon" href="logo.webp" type="image/webp">
 
-  <!-- ✅ Structured Data for Rich Snippets -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "HcCommanDeR",
-	"alternateName": "IGI-2 Multiplayer",
-    "operatingSystem": "Windows",
-    "applicationCategory": "GameApplication",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
+ <!-- ✅ Structured Data: BreadcrumbList + SoftwareApplication with author -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://igi2multiplayer.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "HcCommanDeR",
+          "item": "https://igi2multiplayer.pages.dev/hccommander.html"
+        }
+      ]
     },
-    "downloadUrl": "https://tinyurl.com/IGI-2-Covert-Strike",
-    "image": "https://igi2multiplayer.pages.dev/images/HcCommanDeR.webp",
-    "description": "HcCommanDeR is a professional IGI-2 server host and control tool developed by Homecoming Gaming. It provides full multiplayer admin control, player logs, bans, and server monitoring features.",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Homecoming Gaming",
-      "url": "https://igi2multiplayer.pages.dev",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://igi2multiplayer.pages.dev/logo.webp"
+    {
+      "@type": "SoftwareApplication",
+      "name": "HcCommanDeR",
+      "alternateName": "IGI-2 Multiplayer Admin Tool",
+      "operatingSystem": "Windows",
+      "applicationCategory": "GameApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "downloadUrl": "https://igi2multiplayer.pages.dev/downloads/hccommander.exe",
+      "image": "https://igi2multiplayer.pages.dev/images/HcCommanDeR.webp",
+      "description": "HcCommanDeR is a professional IGI-2 server hosting and control tool. It provides full multiplayer admin control, player logs, bans, and server monitoring features.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "IGI-2 Multiplayer",
+        "url": "https://igi2multiplayer.pages.dev",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://igi2multiplayer.pages.dev/logo.webp"
+        }
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Homecoming Gaming",
+        "url": "https://igi2multiplayer.pages.dev/"
       }
     }
-  }
-  </script>
+  ]
+}
+</script>
 
   <!-- ✅ CSS & Scripts -->
   <link rel="stylesheet" href="style.css">

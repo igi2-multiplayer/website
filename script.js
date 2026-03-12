@@ -168,18 +168,23 @@ document.addEventListener("DOMContentLoaded", function() {
     link.setAttribute('rel', 'noopener noreferrer');
   });
 });
-// Dynamic copyright year
 document.addEventListener("DOMContentLoaded", () => {
-  const startYear = 2015;
-  const currentYear = new Date().getFullYear();
-
-  const yearText = currentYear > startYear
-    ? `${startYear}–${currentYear}`
-    : `${startYear}`;
-
   const footer = document.getElementById("footer-text");
+  if (!footer) return;
 
-  if (footer) {
+  // Get current page filename
+  const page = window.location.pathname.split("/").pop();
+
+  if (page === "igi2.html") {
+    // Special footer for IGI-2 page
+    footer.innerHTML = `<span style="font-size:16px;">
+      Project I.G.I-2: Covert Strike © Codemasters. All rights belong to their respective owners.
+    </span>`;
+  } else {
+    // Default footer for all other pages
+    const startYear = 2015;
+    const currentYear = new Date().getFullYear();
+    const yearText = currentYear > startYear ? `${startYear}–${currentYear}` : `${startYear}`;
     footer.innerHTML = `© ${yearText} Homecoming Gaming. All rights reserved.`;
   }
 });
