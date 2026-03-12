@@ -1719,105 +1719,136 @@ html {
 }
 
 /* ============================= 
-   HcLauncheR VIDEO SECTION
+   HcLauncheR VIDEO SECTION (Optimized & Responsive)
 ============================= */
 
-.launcher-video{
-  padding:80px 20px;
-  text-align:center;
-  position:relative;
-  isolation:isolate;
+.launcher-video {
+  padding: 60px 20px;          /* slightly smaller padding for balance */
+  text-align: center;
+  position: relative;
+  isolation: isolate;
 }
 
-.video-container-wrapper{
-  max-width:1000px;
-  margin:auto;
+.video-container-wrapper {
+  max-width: 850px;            /* smaller max width for better proportions */
+  margin: 0 auto;
+  padding: 0 15px;             /* prevents touching edges on small screens */
 }
 
-.launcher-video h2{
-  font-size:34px;
-  margin-bottom:15px;
-  color:#00eaff;
-  text-shadow:0 0 10px rgba(0,255,255,0.6);
+.launcher-video h2 {
+  font-size: 32px;             /* slightly smaller for balance */
+  margin-bottom: 15px;
+  color: #00eaff;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
 }
 
 /* Background glow effect */
-
-.launcher-video::before{
-  content:"";
-  position:absolute;
-  top:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:600px;
-  height:200px;
-  background:radial-gradient(circle, rgba(0,255,255,0.25), transparent);
-  filter:blur(80px);
-  z-index:-1;
+.launcher-video::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.25), transparent);
+  filter: blur(80px);
+  z-index: -1;
 }
 
-.video-description{
-  max-width:700px;
-  margin:auto;
-  margin-bottom:35px;
-  line-height:1.6;
-  color:#ccc;
+.video-description {
+  max-width: 700px;
+  margin: 0 auto 35px;
+  line-height: 1.6;
+  color: #ccc;
 }
 
 /* Video frame with neon border */
-
-.video-frame{
-  position:relative;
-  padding-bottom:56.25%;
-  height:0;
-  overflow:hidden;
-  border-radius:12px;
-  border:2px solid rgba(0,255,255,0.4);
+.video-frame {
+  position: relative;
+  padding-bottom: 56.25%;       /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 2px solid rgba(0, 255, 255, 0.4);
   box-shadow:
-    0 0 20px rgba(0,255,255,0.25),
-    0 0 40px rgba(0,255,255,0.15),
-    inset 0 0 20px rgba(0,255,255,0.1);
-  transition:all 0.4s ease;
+    0 0 20px rgba(0, 255, 255, 0.25),
+    0 0 40px rgba(0, 255, 255, 0.15),
+    inset 0 0 20px rgba(0, 255, 255, 0.1);
+  transition: all 0.4s ease;
+  max-height: 450px;             /* prevents video from getting too tall */
+  margin: 0 auto;
 }
 
 /* Hover glow effect */
-
-.video-frame:hover{
-  transform:scale(1.02);
+.video-frame:hover {
+  transform: scale(1.02);
   box-shadow:
-    0 0 35px rgba(0,255,255,0.6),
-    0 0 70px rgba(0,255,255,0.35),
-    inset 0 0 30px rgba(0,255,255,0.2);
+    0 0 35px rgba(0, 255, 255, 0.6),
+    0 0 70px rgba(0, 255, 255, 0.35),
+    inset 0 0 30px rgba(0, 255, 255, 0.2);
 }
 
 /* Cinematic overlay on video */
-
-.video-frame::after{
-  content:"";
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:linear-gradient(
+.video-frame::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
     to bottom,
-    rgba(0,0,0,0.2),
-    rgba(0,0,0,0.4)
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.4)
   );
-  pointer-events:none;
-  border-radius:12px;
+  pointer-events: none;
+  border-radius: 12px;
 }
 
 /* YouTube iframe */
-
-.video-frame iframe{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  border:0;
+.video-frame iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
+
+/* Tablet adjustments */
+@media (max-width: 1024px) {
+  .launcher-video h2 {
+    font-size: 28px;
+  }
+  .video-frame {
+    max-height: 400px;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .launcher-video {
+    padding: 40px 15px;
+  }
+  .launcher-video h2 {
+    font-size: 24px;
+  }
+  .video-description {
+    font-size: 15px;
+  }
+  .video-frame {
+    max-height: 300px;
+  }
+}
+
+/* Extra large screens (4K/ultrawide) */
+@media (min-width: 1600px) {
+  .video-container-wrapper {
+    max-width: 1000px; /* allows a bit more space on ultra-large screens */
+  }
+}
+
 /* ------------------------------
    COOKIE / PRIVACY / TERMS BOX STYLE
 --------------------------------*/
@@ -2056,6 +2087,4 @@ html {
   color: #00ffff;
   text-shadow: 0 0 12px #00ffff;
   transform: translateX(4px);
-
 }
-
