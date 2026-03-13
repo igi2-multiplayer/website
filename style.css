@@ -1770,11 +1770,12 @@ html {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 600px;
+  width: min(600px, 90vw);   /* responsive width */
   height: 200px;
   background: radial-gradient(circle, rgba(0, 255, 255, 0.25), transparent);
   filter: blur(80px);
   z-index: -1;
+  pointer-events: none;
 }
 
 .video-description {
